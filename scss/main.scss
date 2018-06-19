@@ -54,7 +54,6 @@ $borderTopLeftColor: #ffffff;
 $borderRightBottomColor: #727272;
 $backgroundColor: #d4d4d4;
 
-
 $numberColors: (
         number1: blue,
         number2: green,
@@ -93,19 +92,25 @@ body {
 }
 
 .menuContainer {
-  border: 1px solid red;
-    .menu {
-      display: flex;
-      align-content: flex-start;
-      li {
-        padding-right: 10px;
-        .submenu {
-          display: none;
-        }
-      }
+  .menu {
+    font-size: 20px;
+    display: flex;
+    align-content: flex-start;
+    li {
+      width: 100px;
+      height: 35px;
+      text-align: center;
+      line-height: 35px;
+      cursor: pointer;
     }
   }
+}
 
+.menu {
+  li:hover {
+    background-color: #ffffff;
+  }
+}
 
 .informationContainer {
   border-bottom: 3px solid $borderTopLeftColor;
@@ -119,42 +124,42 @@ body {
   justify-content: space-between;
   line-height: 100px;
   align-items: center;
-    .minesCounter {
-      height: 70px;
-      width: 100px;
-      border: 1px solid red;
-      div {
-        height: 56px;
-        width: 32px;
-      }
-    }
-    .saperPicture {
-      height: 60px;
-      width: 60px;
-      border: 1px solid red;
-    }
-    .timer {
-      height: 70px;
-      width: 100px;
-      border: 1px solid red;
-      div {
-        height: 56px;
-        width: 32px;
-      }
+  .minesCounter {
+    height: 70px;
+    width: 100px;
+    border: 1px solid red;
+    div {
+      height: 56px;
+      width: 32px;
     }
   }
-
-
+  .saperPicture {
+    height: 60px;
+    width: 60px;
+    border: 1px solid red;
+    background-size: cover;
+  }
+  .timer {
+    height: 70px;
+    width: 100px;
+    border: 1px solid red;
+    div {
+      height: 56px;
+      width: 32px;
+    }
+  }
+}
 
 .boardContainer {
   border-bottom: 3px solid $borderTopLeftColor;
   border-right: 3px solid $borderTopLeftColor;
   border-left: 3px solid $borderRightBottomColor;
   border-top: 3px solid $borderRightBottomColor;
+  div {
+    background-size: cover;
+  }
 
 }
-
-
 
 .unknown {
   width: 50px;

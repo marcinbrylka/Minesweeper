@@ -2,6 +2,7 @@ import '../scss/main.scss';
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const saperPicture = document.querySelector(".saperPicture").style.backgroundImage = "url(images/face_unpressed.png)";
     const main = document.querySelector(".mainContainer");
     const board = document.querySelector(".boardContainer");
     const info = document.querySelector(".informationContainer");
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     for (let n = 0; n < cells[j].length; n++) {
                                         cells[k][n].className = "known";
                                         if (cellsNumbers[k][n] === -1) {
-                                            cells[k][n].innerText = "*";
+                                            cells[k][n].style.backgroundImage = "url(images/saper.png)"
                                         }
                                         for (let m = 1; m < 9; m++) {
                                             if (cellsNumbers[k][n] === m) {
@@ -116,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
         }
+
 
         createCellsNumbers() {
             for (let i = 0; i < this.boardRows; i++) {
@@ -207,10 +209,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // minesweeper.helpFunctionToCheckEverything();
 
-    // const gameMenu = document.querySelector(".game");
-    // const gameSubmenu = document.querySelector(".gameSubmenu");
-    // gameMenu.addEventListener("click", function () {
-    //     gameSubmenu.style.display = "block"
-    // })
+    const gameMenu = $(".game");
+    const gameSubmenu = $(".gameSubmenu");
+    gameMenu.on("click", function () {
+        gameSubmenu.slideToggle();
+    })
+
+
 
 });
