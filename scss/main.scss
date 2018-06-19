@@ -19,54 +19,155 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
+
 body {
   line-height: 1;
 }
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
 /*---------------------general----------------------*/
-$borderTopLeftColor: #d1d1d1;
-$borderRightBottomColor: #2c2c2c;
-$backgroundColor: #c8c8c8;
+$borderTopLeftColor: #ffffff;
+$borderRightBottomColor: #727272;
+$backgroundColor: #d4d4d4;
+
+
+$numberColors: (
+        number1: blue,
+        number2: green,
+        number3: red,
+        number4: navy,
+        number5: brown,
+        number6: hotpink,
+        number7: yellow,
+        number8: olivedrab
+);
 
 * {
   box-sizing: border-box;
 }
 
-.mainConteiner {
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: center;
+  background-color: $backgroundColor;
 }
+
+.mainContainer {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  background-color: $backgroundColor;
+  border-top: 3px solid $borderTopLeftColor;
+  border-left: 3px solid $borderTopLeftColor;
+  border-right: 3px solid $borderRightBottomColor;
+  border-bottom: 3px solid $borderRightBottomColor;
+}
+
+.menuContainer {
+  border: 1px solid red;
+    .menu {
+      display: flex;
+      align-content: flex-start;
+      li {
+        padding-right: 10px;
+        .submenu {
+          display: none;
+        }
+      }
+    }
+  }
+
+
+.informationContainer {
+  border-bottom: 3px solid $borderTopLeftColor;
+  border-right: 3px solid $borderTopLeftColor;
+  border-left: 3px solid $borderRightBottomColor;
+  border-top: 3px solid $borderRightBottomColor;
+  padding-right: 6px;
+  padding-left: 6px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  line-height: 100px;
+  align-items: center;
+    .minesCounter {
+      height: 70px;
+      width: 100px;
+      border: 1px solid red;
+      div {
+        height: 56px;
+        width: 32px;
+      }
+    }
+    .saperPicture {
+      height: 60px;
+      width: 60px;
+      border: 1px solid red;
+    }
+    .timer {
+      height: 70px;
+      width: 100px;
+      border: 1px solid red;
+      div {
+        height: 56px;
+        width: 32px;
+      }
+    }
+  }
+
+
+
+.boardContainer {
+  border-bottom: 3px solid $borderTopLeftColor;
+  border-right: 3px solid $borderTopLeftColor;
+  border-left: 3px solid $borderRightBottomColor;
+  border-top: 3px solid $borderRightBottomColor;
+
+}
+
+
 
 .unknown {
   width: 50px;
   height: 50px;
   background-color: $backgroundColor;
-  border-top: 5px solid $borderTopLeftColor;
-  border-left: 5px solid $borderTopLeftColor;
-  border-right: 5px solid $borderRightBottomColor;
-  border-bottom: 5px solid $borderRightBottomColor;
+  border-top: 3px solid $borderTopLeftColor;
+  border-left: 3px solid $borderTopLeftColor;
+  border-right: 3px solid $borderRightBottomColor;
+  border-bottom: 3px solid $borderRightBottomColor;
   float: left;
+  text-align: center;
+  line-height: 40px;
+  font-size: 2em;
 }
 
 .known {
@@ -78,9 +179,12 @@ $backgroundColor: #c8c8c8;
   border-right: 0;
   border-bottom: 0;
   float: left;
+  text-align: center;
+  line-height: 50px;
+  font-size: 2em;
 }
 
-.numuber {
+.number {
   width: 50px;
   height: 50px;
   background-color: $backgroundColor;
@@ -91,34 +195,12 @@ $backgroundColor: #c8c8c8;
   float: left;
 }
 
-.number1 {
-  color: blue;
+.flag {
+  line-height: 40px;
 }
 
-.number2 {
-  color: green;
-}
-
-.number3 {
-  color: red;
-}
-
-.number4 {
-  color: navy;
-}
-
-.number5 {
-  color: brown;
-}
-
-.number6 {
-  color: hotpink;
-}
-
-.number7 {
-  color: yellow;
-}
-
-.number8 {
-  color: olivedrab;
+@each $name, $color in $numberColors {
+  .#{$name} {
+    color: $color;
+  }
 }
