@@ -10,14 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const tJ = document.querySelector(".timer .tJ");
 
     let timerInterval;
+    let num1 = 0;
+    let num2 = 0;
+    let num3 = 0;
+    let startTimer = 0;
+
 
     const timer = () => {
 
-        let num1  = 0;
-        let num2  = 0;
-        let num3  = 0;
+        clearInterval(timerInterval);
         timerInterval = setInterval(() => {
-
             num1++;
             if (num1 === 10) {
                 num1 = 0;
@@ -45,6 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
         tS.innerHTML = "" + 0;
         tD.innerHTML = "" + 0;
         tJ.innerHTML = "" + 0;
+        num1 = 0;
+        num2 = 0;
+        num3 = 0;
+        startTimer = 0;
     };
 
     const stopTimer = () => {
@@ -64,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let numberOfCells;
     let floodFillCounter = 0;
 
+
     class Minesweeper {
         constructor(boardColumns, boardRows, numberOfMines) {
             this.boardColumns = boardColumns;
@@ -72,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         createBoard() {
+            console.log(this.numberOfMines);
             main.style.width = this.boardColumns * 50 + 60 + "px";
             board.style.width = this.boardColumns * 50 + 8 + "px";
             board.style.height = this.boardRows * 50 + 8 + "px";
@@ -93,18 +101,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (let i = 0; i < this.boardRows; i++) {
                 for (let j = 0; j < this.boardColumns; j++) {
-
                     cells[i][j].addEventListener("contextmenu", function (e) {
                         e.preventDefault();
                     });
 
-                    // cells[i][j].addEventListener("mousedown", function (e) {
-                    //     if (e.button === 0) {
-                    //         if (this.innerText !== "🚩" && this.innerText !== "?") {
-                    //             this.className = "known"
-                    //         }
-                    //     }
-                    // });
+
+                    cells[i][j].addEventListener("mousedown", function (e) {
+                        if (e.button === 0 && !cells[i][j].classList.contains("gameOver")) {
+                            if (this.innerText !== "🚩" && this.innerText !== "?" && !this.classList.contains("known")) {
+                                this.className = "known";
+                                saperPicture.style.backgroundImage = "url(images/face_active.png)";
+                            }
+                        }
+                    });
 
                     // cells[i][j].addEventListener("mousedown", function (e) {
                     //     if (e.button === 0) {
@@ -115,19 +124,52 @@ document.addEventListener("DOMContentLoaded", function () {
                     // });
 
                     cells[i][j].addEventListener("mousedown", (e) => {
-                        if (e.button === 1) {
+                        if (e.button === 1 && !cells[i][j].classList.contains("gameOver")) {
                             this.showNeighboursCells(i, j);
+
+                            for (let i = 0; i < this.boardRows; i++) {
+                                for (let j = 0; j < this.boardColumns; j++) {
+                                    cells[i][j].addEventListener("mouseenter", () => {
+                                        if (!cells[i][j].classList.contains("gameOver")) {
+                                            this.showNeighboursCells(i, j);
+                                        }
+                                    });
+                                    cells[i][j].addEventListener("mouseleave", () => {
+                                        if (!cells[i][j].classList.contains("gameOver")) {
+                                            this.hideNeighboursCells(i, j);
+                                        }
+                                    })
+                                }
+                            }
                         }
                     });
 
                     cells[i][j].addEventListener("mouseup", (e) => {
-                        if (e.button === 1) {
+                        if (e.button === 1 && !cells[i][j].classList.contains("gameOver")) {
                             this.hideNeighboursCells(i, j);
+                            for (let i = 0; i < this.boardRows; i++) {
+                                for (let j = 0; j < this.boardColumns; j++) {
+                                    cells[i][j].addEventListener("mouseenter", () => {
+                                        if (!cells[i][j].classList.contains("gameOver")) {
+                                            this.hideNeighboursCells(i, j);
+                                        }
+                                    });
+                                    cells[i][j].addEventListener("mouseleave", () => {
+                                        if (!cells[i][j].classList.contains("gameOver")) {
+                                            this.hideNeighboursCells(i, j);
+                                        }
+                                    })
+                                }
+                            }
                         }
                     });
 
                     cells[i][j].addEventListener("mouseup", (e) => {
-                        if (e.button === 0) {
+                        if (e.button === 0 && !cells[i][j].classList.contains("gameOver")) {
+                            if (startTimer === 0) {
+                                timer();
+                                startTimer = 1;
+                            }
                             if (cells[i][j].innerText === "🚩") {
                                 return false;
                             }
@@ -142,17 +184,19 @@ document.addEventListener("DOMContentLoaded", function () {
                             if (cells[i][j].className === "unknown") {
                                 if (cells[i][j].innerText === "") {
                                     cells[i][j].innerText = "🚩";
+                                    this.numberOfMines--;
                                 } else if (cells[i][j].innerText === "🚩") {
                                     cells[i][j].innerText = "?";
+                                    this.numberOfMines++;
                                 } else if (cells[i][j].innerText === "?") {
                                     cells[i][j].innerText = "";
                                 }
                             }
+                            console.log(this.numberOfMines);
                         }
                     });
 
                 }
-
             }
 
         }
@@ -215,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
                     if (x + i >= 0 && x + i < this.boardRows && y + j >= 0 && y + j < this.boardColumns) {
-                        if (cellsNumbers[x + i][y + j] !== -1 && cells[x + i][y + j].className !== "known") {
+                        if (cellsNumbers[x + i][y + j] !== -1 && cells[x + i][y + j].className !== "known" && cells[x + i][y + j].innerText === "") {
                             this.reveal(x + i, y + j);
 
                         }
@@ -251,10 +295,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         reveal(x, y) {
             if (cellsNumbers[x][y] === 0) {
-                cells[x][y].className = "known"
+                cells[x][y].className = "known";
+                saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
             }
             if (cellsNumbers[x][y] >= 1 && cellsNumbers[x][y] <= 8) {
                 cells[x][y].className = "known";
+                saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
                 for (let i = 1; i < 9; i++) {
                     if (cellsNumbers[x][y] === i) {
                         cells[x][y].classList.add("number" + i);
@@ -262,22 +308,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
             }
+
             if (cellsNumbers[x][y] === -1) {
                 stopTimer();
+                saperPicture.style.backgroundImage = "url(images/face_lose.png)";
                 for (let i = 0; i < cells.length; i++) {
                     for (let j = 0; j < cells[y].length; j++) {
-                        cells[i][j].className = "known";
+                        cells[i][j].classList.add("gameOver");
                         if (cellsNumbers[i][j] === -1) {
-                            cells[i][j].style.backgroundImage = "url(images/saper.png)"
-                        }
-                        for (let k = 1; k < 9; k++) {
-                            if (cellsNumbers[i][j] === k) {
-                                cells[i][j].classList.add("number" + k);
-                                cells[i][j].innerText = cellsNumbers[i][j];
-                            }
+                            cells[i][j].classList.add("known");
+                            cells[i][j].style.backgroundImage = "url(images/saper.png)";
                         }
                     }
                 }
+                return;
             }
             if (this.checkNeighbours(x, y) === 0) {
                 floodFillCounter += 1;
@@ -292,21 +336,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    let difficult = 0;
+
     const minesweeper = new Minesweeper(15, 15, 30);
     minesweeper.createBoard();
     minesweeper.createCellsNumbers();
-    timer();
 
     saperPicture.addEventListener("mousedown", function () {
         saperPicture.style.backgroundImage = "url(images/face_pressed.png)";
     });
     saperPicture.addEventListener("mouseup", () => {
         saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
-        minesweeper.clearBoard();
-        minesweeper.createBoard();
-        minesweeper.createCellsNumbers();
-        clearTimer();
-        timer();
+        if (difficult === 1) {
+            const minesweeper = new Minesweeper(9, 9, 10);
+            minesweeper.clearBoard();
+            minesweeper.createCellsNumbers();
+            minesweeper.createBoard();
+            clearTimer();
+            return;
+        }
+        if (difficult === 2) {
+            const minesweeper = new Minesweeper(15, 15, 30);
+            minesweeper.clearBoard();
+            minesweeper.createCellsNumbers();
+            minesweeper.createBoard();
+            clearTimer();
+            return;
+        }
+        if (difficult === 3) {
+            const minesweeper = new Minesweeper(30, 16, 99);
+            minesweeper.clearBoard();
+            minesweeper.createCellsNumbers();
+            minesweeper.createBoard();
+            clearTimer();
+            return;
+        }
+        if (difficult === 0) {
+            const minesweeper = new Minesweeper(15, 15, 30);
+            minesweeper.clearBoard();
+            minesweeper.createCellsNumbers();
+            minesweeper.createBoard();
+            clearTimer();
+            console.log(difficult);
+        }
     });
 
     // minesweeper.helpFunctionToCheckEverything();
@@ -314,33 +386,32 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuEasy = document.querySelector(".easy");
     const menuMedium = document.querySelector(".medium");
     const menuHard = document.querySelector(".hard");
-    const gameSubmenu = document.querySelector(".gameSubmenu");
     menuEasy.addEventListener("click", () => {
-        this.minesweeper = null;
+        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        difficult = 1;
         const minesweeper = new Minesweeper(9, 9, 10);
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
         clearTimer();
-        timer();
     });
     menuMedium.addEventListener("click", () => {
-        this.minesweeper = null;
+        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        difficult = 2;
         const minesweeper = new Minesweeper(15, 15, 30);
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
         clearTimer();
-        timer();
     });
     menuHard.addEventListener("click", () => {
-        this.minesweeper = null;
+        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        difficult = 3;
         const minesweeper = new Minesweeper(30, 16, 99);
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
         clearTimer();
-        timer();
     })
 
 
