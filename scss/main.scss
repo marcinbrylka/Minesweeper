@@ -49,10 +49,13 @@ table {
   border-spacing: 0;
 }
 
+
+
 /*---------------------general----------------------*/
 $borderTopLeftColor: #ffffff;
 $borderRightBottomColor: #727272;
 $backgroundColor: #d4d4d4;
+$border: 4px;
 
 $numberColors: (
         number1: blue,
@@ -75,9 +78,11 @@ body {
   align-items: center;
   align-content: center;
   background-color: $backgroundColor;
+
 }
 
 .mainContainer {
+  margin-top: 10px;
   padding-bottom: 20px;
   padding-top: 20px;
   display: flex;
@@ -85,10 +90,10 @@ body {
   align-items: center;
   align-content: center;
   background-color: $backgroundColor;
-  border-top: 3px solid $borderTopLeftColor;
-  border-left: 3px solid $borderTopLeftColor;
-  border-right: 3px solid $borderRightBottomColor;
-  border-bottom: 3px solid $borderRightBottomColor;
+  border-top: $border solid $borderTopLeftColor;
+  border-left: $border solid $borderTopLeftColor;
+  border-right: $border solid $borderRightBottomColor;
+  border-bottom: $border solid $borderRightBottomColor;
 }
 
 .menuContainer {
@@ -113,10 +118,10 @@ body {
 }
 
 .informationContainer {
-  border-bottom: 3px solid $borderTopLeftColor;
-  border-right: 3px solid $borderTopLeftColor;
-  border-left: 3px solid $borderRightBottomColor;
-  border-top: 3px solid $borderRightBottomColor;
+  border-bottom: $border solid $borderTopLeftColor;
+  border-right: $border solid $borderTopLeftColor;
+  border-left: $border solid $borderRightBottomColor;
+  border-top: $border solid $borderRightBottomColor;
   padding-right: 6px;
   padding-left: 6px;
   height: 100px;
@@ -125,12 +130,20 @@ body {
   line-height: 100px;
   align-items: center;
   .minesCounter {
-    height: 70px;
-    width: 100px;
-    border: 1px solid red;
+    height: 73px;
+    width: 116px;
+    border: 1px solid black;
     div {
-      height: 56px;
-      width: 32px;
+      font-size: 75px;
+      line-height: 71px;
+      text-align: center;
+      color: red;
+      float: right;
+      border: 1px solid black;
+      height: 71px;
+      width: 38px;
+      font-family: 'Digital-7', sans-serif;
+      background-color: black;
     }
   }
   .saperPicture {
@@ -139,21 +152,29 @@ body {
     background-size: cover;
   }
   .timer {
-    height: 70px;
-    width: 100px;
-    border: 1px solid red;
+    height: 73px;
+    width: 116px;
+    border: 1px solid black;
     div {
-      height: 56px;
-      width: 32px;
+      font-size: 75px;
+      line-height: 71px;
+      text-align: center;
+      color: red;
+      float: right;
+      border: 1px solid black;
+      height: 71px;
+      width: 38px;
+      font-family: 'Digital-7', sans-serif;
+      background-color: black;
     }
   }
 }
 
 .boardContainer {
-  border-bottom: 3px solid $borderTopLeftColor;
-  border-right: 3px solid $borderTopLeftColor;
-  border-left: 3px solid $borderRightBottomColor;
-  border-top: 3px solid $borderRightBottomColor;
+  border-bottom: $border solid $borderTopLeftColor;
+  border-right: $border solid $borderTopLeftColor;
+  border-left: $border solid $borderRightBottomColor;
+  border-top: $border solid $borderRightBottomColor;
   div {
     background-size: cover;
   }
@@ -164,10 +185,10 @@ body {
   width: 50px;
   height: 50px;
   background-color: $backgroundColor;
-  border-top: 3px solid $borderTopLeftColor;
-  border-left: 3px solid $borderTopLeftColor;
-  border-right: 3px solid $borderRightBottomColor;
-  border-bottom: 3px solid $borderRightBottomColor;
+  border-top: $border solid $borderTopLeftColor;
+  border-left: $border solid $borderTopLeftColor;
+  border-right: $border solid $borderRightBottomColor;
+  border-bottom: $border solid $borderRightBottomColor;
   float: left;
   text-align: center;
   line-height: 40px;
@@ -208,3 +229,4 @@ body {
     color: $color;
   }
 }
+

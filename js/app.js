@@ -2,6 +2,56 @@ import '../scss/main.scss';
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const mS = document.querySelector(".minesCounter .mS");
+    const mD = document.querySelector(".minesCounter .mD");
+    const mJ = document.querySelector(".minesCounter .mJ");
+    const tS = document.querySelector(".timer .tS");
+    const tD = document.querySelector(".timer .tD");
+    const tJ = document.querySelector(".timer .tJ");
+
+    let timerInterval;
+
+    const timer = () => {
+
+        let num1  = 0;
+        let num2  = 0;
+        let num3  = 0;
+        timerInterval = setInterval(() => {
+
+            num1++;
+            if (num1 === 10) {
+                num1 = 0;
+                num2++;
+            }
+            if (num2 === 10) {
+                num2 = 0;
+                num3++;
+            }
+            if (num3 === 10) {
+                clearInterval(timerInterval);
+            }
+
+            tJ.innerHTML = "" + num1;
+            tD.innerHTML = "" + num2;
+            tS.innerHTML = "" + num3;
+
+        }, 1000);
+
+    };
+
+    const clearTimer = () => {
+        clearInterval(timerInterval);
+
+        tS.innerHTML = "" + 0;
+        tD.innerHTML = "" + 0;
+        tJ.innerHTML = "" + 0;
+    };
+
+    const stopTimer = () => {
+        clearInterval(timerInterval);
+    };
+
+
     const saperPicture = document.querySelector(".saperPicture");
     saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
     const main = document.querySelector(".mainContainer");
@@ -22,11 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         createBoard() {
-            main.style.width = this.boardRows * 50 + 60 + "px";
-            board.style.width = this.boardRows * 50 + 7 + "px";
-            board.style.height = this.boardColumns * 50 + 7 + "px";
-            info.style.width = this.boardRows * 50 + "px";
-            menu.style.width = this.boardRows * 50 + "px";
+            main.style.width = this.boardColumns * 50 + 60 + "px";
+            board.style.width = this.boardColumns * 50 + 8 + "px";
+            board.style.height = this.boardRows * 50 + 8 + "px";
+            info.style.width = this.boardColumns * 50 + 8 + "px";
+            menu.style.width = this.boardColumns * 50 + 8 + "px";
             numberOfCells = this.boardRows * this.boardColumns;
             for (let i = 0; i < this.boardRows; i++) {
                 cells.push([]);
@@ -56,64 +106,46 @@ document.addEventListener("DOMContentLoaded", function () {
                     //     }
                     // });
 
-                    cells[i][j].addEventListener("mouseup", (e) => {
-                        if (e.button === 0) {
-                            if (cellsNumbers[i][j] === 0) {
-                                this.reveal(i, j);
-                            }
+                    // cells[i][j].addEventListener("mousedown", function (e) {
+                    //     if (e.button === 0) {
+                    //         if (this.innerText !== "🚩" && this.innerText !== "?") {
+                    //             this.className = "known"
+                    //         }
+                    //     }
+                    // });
+
+                    cells[i][j].addEventListener("mousedown", (e) => {
+                        if (e.button === 1) {
+                            this.showNeighboursCells(i, j);
                         }
                     });
 
-                    cells[i][j].addEventListener("mouseup", function (e) {
+                    cells[i][j].addEventListener("mouseup", (e) => {
+                        if (e.button === 1) {
+                            this.hideNeighboursCells(i, j);
+                        }
+                    });
+
+                    cells[i][j].addEventListener("mouseup", (e) => {
                         if (e.button === 0) {
-                            if (this.innerText === "🚩") {
+                            if (cells[i][j].innerText === "🚩") {
                                 return false;
                             }
-                            if (this.innerText === "?") {
+                            if (cells[i][j].innerText === "?") {
                                 return false;
                             }
-                            // if (cellsNumbers[i][j] === 0) {
-                            //     // reveal(i, j);
-                            //     console.log(floodFillCounter);
-                            //     // this.floodFill(i, j);
-                            //     this.className = "known";
-                            //     // minesweeper.floodFill(i, j);
-                            // }
-                            if (cellsNumbers[i][j] >= 1 && cellsNumbers[i][j] <= 8) {
-                                this.className = "known";
-                                for (let k = 1; k < 9; k++) {
-                                    if (cellsNumbers[i][j] === k) {
-                                        this.classList.add("number" + k);
-                                        this.innerText = cellsNumbers[i][j];
-                                    }
-                                }
-                            }
-                            if (cellsNumbers[i][j] === -1) {
-                                for (let k = 0; k < cells[i].length; k++) {
-                                    for (let n = 0; n < cells[j].length; n++) {
-                                        cells[k][n].className = "known";
-                                        if (cellsNumbers[k][n] === -1) {
-                                            cells[k][n].style.backgroundImage = "url(images/saper.png)"
-                                        }
-                                        for (let m = 1; m < 9; m++) {
-                                            if (cellsNumbers[k][n] === m) {
-                                                cells[k][n].classList.add("number" + m);
-                                                cells[k][n].innerText = cellsNumbers[k][n];
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            this.reveal(i, j);
+
                         }
 
                         if (e.button === 2) {
-                            if (this.className === "unknown") {
-                                if (this.innerText === "") {
-                                    this.innerText = "🚩";
-                                } else if (this.innerText === "🚩") {
-                                    this.innerText = "?";
-                                } else if (this.innerText === "?") {
-                                    this.innerText = "";
+                            if (cells[i][j].className === "unknown") {
+                                if (cells[i][j].innerText === "") {
+                                    cells[i][j].innerText = "🚩";
+                                } else if (cells[i][j].innerText === "🚩") {
+                                    cells[i][j].innerText = "?";
+                                } else if (cells[i][j].innerText === "?") {
+                                    cells[i][j].innerText = "";
                                 }
                             }
                         }
@@ -147,25 +179,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (let i = 0; i < this.boardRows; i++) {
                 for (let j = 0; j < this.boardColumns; j++) {
-                    if (cellsNumbers[i][j] !== -1)   //this.bodyOfCellsNumbers(i, j)
-                        cellsNumbers[i][j] = this.checkNeighbours(i, j); //cellsNumbers[this.indexOfCells(i, j)]
+                    if (cellsNumbers[i][j] !== -1)
+                        cellsNumbers[i][j] = this.checkNeighbours(i, j);
                 }
             }
             console.log(cellsNumbers);
             console.log(cells);
         }
-
-        // bodyOfCells(x, y) {
-        //     return cells[x + (y * this.boardColumns)]
-        // }
-        //
-        // bodyOfCellsNumbers(x, y) {
-        //     return cellsNumbers[x + (y * this.boardColumns)]
-        // }
-        //
-        // indexOfCells(x, y) {
-        //     return x + (y * this.boardColumns)
-        // }
 
         checkNeighbours(x, y) {
 
@@ -173,9 +193,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
-                    if (x + i >= 0 && x + i < this.boardColumns && y + j >= 0 && y + j < this.boardRows) {
+                    if (x + i >= 0 && x + i < this.boardRows && y + j >= 0 && y + j < this.boardColumns) {
                         if (i !== 0 || j !== 0) {
-                            if (cellsNumbers[x + i][y + j] === -1) { //this.bodyOfCellsNumbers(x + i, y + j)
+                            if (cellsNumbers[x + i][y + j] === -1) {
                                 mines += 1;
                             }
                         }
@@ -187,32 +207,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         generateMines() {
             for (let i = 0; i < this.numberOfMines; i++) {
-                cellsNumbers[Math.floor(Math.random() * (cellsNumbers.length - 1))][Math.floor(Math.random() * (cellsNumbers.length - 1))] = -1;
+                cellsNumbers[Math.floor(Math.random() * (this.boardRows - 1))][Math.floor(Math.random() * (this.boardColumns - 1))] = -1;
             }
         };
-
-        // floodFIll(x, y) {
-        //     if (x < 0 && x >= this.boardColumns && y < 0 && y >= this.boardRows) {
-        //         return false;
-        //     }
-        //     if (cellsNumbers[x][y] !== 0) {
-        //         return false;
-        //     }
-        //     cells[x][y].className = "known";
-        //     floodFill(x, y - 1);
-        //     floodFill(x + 1, y - 1);
-        //     floodFill(x + 1, y);
-        //     floodFill(x + 1, y + 1);
-        //     floodFill(x, y + 1);
-        //     floodFill(x - 1, y + 1);
-        //     floodFill(x - 1, y);
-        //     floodFill(x - 1, y - 1);
-        // }
 
         floodFill(x, y) {
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
-                    if (x + i >= 0 && x + i < this.boardColumns && y + j >= 0 && y + j < this.boardRows) {
+                    if (x + i >= 0 && x + i < this.boardRows && y + j >= 0 && y + j < this.boardColumns) {
                         if (cellsNumbers[x + i][y + j] !== -1 && cells[x + i][y + j].className !== "known") {
                             this.reveal(x + i, y + j);
 
@@ -220,11 +222,33 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
             }
-
-
         }
 
-        //test     //static?
+        showNeighboursCells(x, y) {
+            for (let i = -1; i < 2; i++) {
+                for (let j = -1; j < 2; j++) {
+                    if (x + i >= 0 && x + i < this.boardRows && y + j >= 0 && y + j < this.boardColumns) {
+                        if (cells[x + i][y + j].className !== "known" && cells[x + i][y + j].innerText === "") {
+                            cells[x + i][y + j].className = "known";
+                            cells[x + i][y + j].classList.add("helpClass")
+                        }
+                    }
+                }
+            }
+        }
+
+        hideNeighboursCells(x, y) {
+            for (let i = -1; i < 2; i++) {
+                for (let j = -1; j < 2; j++) {
+                    if (x + i >= 0 && x + i < this.boardRows && y + j >= 0 && y + j < this.boardColumns) {
+                        if (cells[x + i][y + j].classList.contains("known") && cells[x + i][y + j].innerText === "" && cells[x + i][y + j].classList.contains("helpClass")) {
+                            cells[x + i][y + j].className = "unknown"
+                        }
+                    }
+                }
+            }
+        }
+
         reveal(x, y) {
             if (cellsNumbers[x][y] === 0) {
                 cells[x][y].className = "known"
@@ -239,7 +263,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
             if (cellsNumbers[x][y] === -1) {
-                for (let i = 0; i < cells[x].length; i++) {
+                stopTimer();
+                for (let i = 0; i < cells.length; i++) {
                     for (let j = 0; j < cells[y].length; j++) {
                         cells[i][j].className = "known";
                         if (cellsNumbers[i][j] === -1) {
@@ -261,17 +286,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        helpFunctionToCheckEverything() {
-            for (let i = 0; i < cells.length; i++) {
-                cells[i].innerHTML = cellsNumbers[i]
-            }
-        }
+        // helpFunctionToCheckEverything() {
+
+        // }
 
     }
 
     const minesweeper = new Minesweeper(15, 15, 30);
     minesweeper.createBoard();
     minesweeper.createCellsNumbers();
+    timer();
 
     saperPicture.addEventListener("mousedown", function () {
         saperPicture.style.backgroundImage = "url(images/face_pressed.png)";
@@ -281,6 +305,8 @@ document.addEventListener("DOMContentLoaded", function () {
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
+        clearTimer();
+        timer();
     });
 
     // minesweeper.helpFunctionToCheckEverything();
@@ -295,6 +321,8 @@ document.addEventListener("DOMContentLoaded", function () {
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
+        clearTimer();
+        timer();
     });
     menuMedium.addEventListener("click", () => {
         this.minesweeper = null;
@@ -302,13 +330,17 @@ document.addEventListener("DOMContentLoaded", function () {
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
+        clearTimer();
+        timer();
     });
     menuHard.addEventListener("click", () => {
         this.minesweeper = null;
-        const minesweeper = new Minesweeper(20, 20, 99);
+        const minesweeper = new Minesweeper(30, 16, 99);
         minesweeper.clearBoard();
         minesweeper.createBoard();
         minesweeper.createCellsNumbers();
+        clearTimer();
+        timer();
     })
 
 
