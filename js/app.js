@@ -372,8 +372,8 @@ document.addEventListener("DOMContentLoaded", function () {
             if (cellsNumbers[x][y] === -1) {
                 stopTimer();
                 saperPicture.style.backgroundImage = "url(images/face_lose.png)";
-                for (let i = 0; i < cells.length; i++) {
-                    for (let j = 0; j < cells[y].length; j++) {
+                for (let i = 0; i < this.boardRows; i++) {
+                    for (let j = 0; j < this.boardColumns; j++) {
                         cells[i][j].classList.add("gameOver");
                         if (cellsNumbers[i][j] === -1) {
                             cells[i][j].classList.add("known");
