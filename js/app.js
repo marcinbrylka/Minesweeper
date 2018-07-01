@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let timerInterval;
     let num1 = 0;
-    let num2 = 0;
-    let num3 = 0;
+    let num2 = 8;
+    let num3 = 8;
     let startTimer = 0;
 
 
@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             if (num3 === 10) {
                 clearInterval(timerInterval);
+                return;
             }
 
             tJ.innerHTML = "" + num1;
