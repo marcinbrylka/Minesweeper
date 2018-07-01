@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let timerInterval;
     let num1 = 0;
-    let num2 = 8;
-    let num3 = 8;
+    let num2 = 0;
+    let num3 = 0;
     let startTimer = 0;
 
 
@@ -382,10 +382,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
-
-        // helpFunctionToCheckEverything() {
-
-        // }
+        start() {
+            this.clearBoard();
+            this.createCellsNumbers();
+            this.createBoard();
+            this.minesCounter();
+        }
 
     }
 
@@ -404,37 +406,25 @@ document.addEventListener("DOMContentLoaded", function () {
         saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         if (difficult === 1) {
             const minesweeper = new Minesweeper(9, 9, 10);
-            minesweeper.clearBoard();
-            minesweeper.createCellsNumbers();
-            minesweeper.createBoard();
-            minesweeper.minesCounter();
+            minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 2) {
             const minesweeper = new Minesweeper(15, 15, 30);
-            minesweeper.clearBoard();
-            minesweeper.createCellsNumbers();
-            minesweeper.createBoard();
-            minesweeper.minesCounter();
+            minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 3) {
             const minesweeper = new Minesweeper(30, 16, 99);
-            minesweeper.clearBoard();
-            minesweeper.createCellsNumbers();
-            minesweeper.createBoard();
-            minesweeper.minesCounter();
+            minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 0) {
             const minesweeper = new Minesweeper(15, 15, 30);
-            minesweeper.clearBoard();
-            minesweeper.createCellsNumbers();
-            minesweeper.createBoard();
-            minesweeper.minesCounter();
+            minesweeper.start();
             clearTimer();
             console.log(difficult);
         }
@@ -448,31 +438,22 @@ document.addEventListener("DOMContentLoaded", function () {
     menuEasy.addEventListener("click", () => {
         saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 1;
-        const minesweeper = new Minesweeper(9, 9, 1);
-        minesweeper.clearBoard();
-        minesweeper.createBoard();
-        minesweeper.createCellsNumbers();
-        minesweeper.minesCounter();
+        const minesweeper = new Minesweeper(9, 9, 10);
+        minesweeper.start();
         clearTimer();
     });
     menuMedium.addEventListener("click", () => {
         saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 2;
         const minesweeper = new Minesweeper(15, 15, 30);
-        minesweeper.clearBoard();
-        minesweeper.createBoard();
-        minesweeper.createCellsNumbers();
-        minesweeper.minesCounter();
+        minesweeper.start();
         clearTimer();
     });
     menuHard.addEventListener("click", () => {
         saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 3;
         const minesweeper = new Minesweeper(30, 16, 99);
-        minesweeper.clearBoard();
-        minesweeper.createBoard();
-        minesweeper.createCellsNumbers();
-        minesweeper.minesCounter();
+        minesweeper.start();
         clearTimer();
     })
 
