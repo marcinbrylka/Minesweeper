@@ -79,11 +79,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         createBoard() {
             console.log(this.numberOfMines);
-            main.style.width = this.boardColumns * 50 + 60 + "px";
-            board.style.width = this.boardColumns * 50 + 8 + "px";
-            board.style.height = this.boardRows * 50 + 8 + "px";
-            info.style.width = this.boardColumns * 50 + 8 + "px";
-            menu.style.width = this.boardColumns * 50 + 8 + "px";
+            main.style.width = this.boardColumns * 35 + 45 + "px";
+            board.style.width = this.boardColumns * 35 + 6 + "px";
+            board.style.height = this.boardRows * 35 + 6 + "px";
+            info.style.width = this.boardColumns * 35 + 6 + "px";
+            menu.style.width = this.boardColumns * 35 + 6 + "px";
             numberOfCells = this.boardRows * this.boardColumns;
             for (let i = 0; i < this.boardRows; i++) {
                 cells.push([]);
@@ -113,14 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         }
                     });
-
-                    // cells[i][j].addEventListener("mousedown", function (e) {
-                    //     if (e.button === 0) {
-                    //         if (this.innerText !== "🚩" && this.innerText !== "?") {
-                    //             this.className = "known"
-                    //         }
-                    //     }
-                    // });
 
                     cells[i][j].addEventListener("mousedown", (e) => {
                         if (e.button === 1 && !cells[i][j].classList.contains("gameOver")) {

@@ -54,7 +54,7 @@ table {
 $borderTopLeftColor: #ffffff;
 $borderRightBottomColor: #727272;
 $backgroundColor: #d4d4d4;
-$border: 4px;
+$border: 3px;
 
 $numberColors: (
         number1: blue,
@@ -82,8 +82,8 @@ body {
 
 .mainContainer {
   margin-top: 10px;
-  padding-bottom: 20px;
-  padding-top: 20px;
+  padding-bottom: 15px;
+  padding-top: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,14 +97,14 @@ body {
 
 .menuContainer {
   .menu {
-    font-size: 20px;
+    font-size: 15px;
     display: flex;
     align-content: flex-start;
     li {
-      width: 100px;
-      height: 35px;
+      width: 75px;
+      height: 20px;
       text-align: center;
-      line-height: 35px;
+      line-height: 20px;
       cursor: pointer;
     }
   }
@@ -121,49 +121,49 @@ body {
   border-right: $border solid $borderTopLeftColor;
   border-left: $border solid $borderRightBottomColor;
   border-top: $border solid $borderRightBottomColor;
-  padding-right: 6px;
-  padding-left: 6px;
-  height: 100px;
+  padding-right: 4px;
+  padding-left: 4px;
+  height: 75px;
   display: flex;
   justify-content: space-between;
-  line-height: 100px;
+  line-height: 75px;
   align-items: center;
   .minesCounter {
-    height: 73px;
-    width: 116px;
+    height: 55px;
+    width: 86px;
     border: 1px solid black;
     div {
-      font-size: 75px;
-      line-height: 71px;
+      font-size: 55px;
+      line-height: 53px;
       text-align: center;
       color: red;
       float: right;
       border: 1px solid black;
-      height: 71px;
-      width: 38px;
+      height: 53px;
+      width: 28px;
       font-family: Digital-7, sans-serif;
       background-color: black;
     }
   }
   .saperPicture {
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
     background-size: cover;
   }
   .timer {
-    height: 73px;
-    width: 116px;
+    height: 55px;
+    width: 86px;
     border: 1px solid black;
     div {
-      font-size: 75px;
-      line-height: 71px;
+      font-size: 55px;
+      line-height: 53px;
       text-align: center;
       color: red;
       float: right;
       border: 1px solid black;
-      height: 71px;
-      width: 38px;
-      font-family: 'Digital-7', sans-serif;
+      height: 53px;
+      width: 28px;
+      font-family: Digital-7, sans-serif;
       background-color: black;
     }
   }
@@ -181,8 +181,8 @@ body {
 }
 
 .unknown {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background-color: $backgroundColor;
   border-top: $border solid $borderTopLeftColor;
   border-left: $border solid $borderTopLeftColor;
@@ -190,38 +190,27 @@ body {
   border-bottom: $border solid $borderRightBottomColor;
   float: left;
   text-align: center;
-  line-height: 40px;
-  font-size: 2em;
+  line-height: 35px;
+  font-size: 1.8em;
 }
 
 .known {
-  width: 50px;
-  height: 50px;
+  width: 35px;
+  height: 35px;
   background-color: $backgroundColor;
-  border-top: 2px solid $borderRightBottomColor;
-  border-left: 2px solid $borderRightBottomColor;
+  border-top: 1px solid $borderRightBottomColor;
+  border-left: 1px solid $borderRightBottomColor;
   border-right: 0;
   border-bottom: 0;
   float: left;
   text-align: center;
-  line-height: 50px;
-  font-size: 2em;
+  line-height: 35px;
+  font-size: 1.8em;
   //font-family: 'Digital-7', sans-serif;
 }
 
-.number {
-  width: 50px;
-  height: 50px;
-  background-color: $backgroundColor;
-  border-top: 2px solid $borderRightBottomColor;
-  border-left: 2px solid $borderRightBottomColor;
-  border-right: 0;
-  border-bottom: 0;
-  float: left;
-}
-
 .flag {
-  line-height: 40px;
+  line-height: 35px;
 }
 
 @each $name, $color in $numberColors {
