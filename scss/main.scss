@@ -213,6 +213,60 @@ body {
   line-height: 35px;
 }
 
+.winFormBackground {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(124, 121, 124, 0.5);
+  position: absolute;
+  top: 0;
+
+  .border {
+
+    background-color: $backgroundColor;
+    border-top: $border solid $borderTopLeftColor;
+    border-left: $border solid $borderTopLeftColor;
+    border-right: $border solid $borderRightBottomColor;
+    border-bottom: $border solid $borderRightBottomColor;
+    padding: 5px;
+
+    .winForm {
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background-color: $backgroundColor;
+      border-bottom: $border solid $borderTopLeftColor;
+      border-right: $border solid $borderTopLeftColor;
+      border-left: $border solid $borderRightBottomColor;
+      border-top: $border solid $borderRightBottomColor;
+
+      > p {
+        font-size: 50px;
+        margin: 20px;
+      }
+
+      > span {
+        font-size: 25px;
+        margin-bottom: 20px;
+      }
+      form {
+        input {
+          width: 170px;
+          margin-bottom: 5px;
+        }
+
+        button {
+          width: 83px;
+          margin: 5px 0 20px 0;
+        }
+      }
+    }
+  }
+}
+
 @each $name, $color in $numberColors {
   .#{$name} {
     color: $color;

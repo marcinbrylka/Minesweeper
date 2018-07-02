@@ -393,7 +393,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let difficult = 0;
 
-    const minesweeper = new Minesweeper(15, 15, 30);
+    const minesweeper = new Minesweeper(30, 16, 30);
     minesweeper.createBoard();
     minesweeper.createCellsNumbers();
     minesweeper.minesCounter();
