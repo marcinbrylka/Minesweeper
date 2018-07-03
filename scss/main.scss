@@ -267,6 +267,18 @@ body {
   }
 }
 
+th {
+  padding: 10px 0 10px 0;
+}
+
+td {
+  padding: 2px;
+}
+
+.dataEasy, .dataMedium, .dataHard {
+  padding: 0;
+}
+
 @each $name, $color in $numberColors {
   .#{$name} {
     color: $color;
