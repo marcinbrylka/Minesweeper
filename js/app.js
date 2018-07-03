@@ -1,13 +1,9 @@
 import '../scss/main.scss';
+import {Selectors} from "./selectors.js"
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    const mS = document.querySelector(".minesCounter .mS");
-    const mD = document.querySelector(".minesCounter .mD");
-    const mJ = document.querySelector(".minesCounter .mJ");
-    const tS = document.querySelector(".timer .tS");
-    const tD = document.querySelector(".timer .tD");
-    const tJ = document.querySelector(".timer .tJ");
+    const selectors = new Selectors();
 
     let timerInterval;
     let num1 = 0;
@@ -34,9 +30,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            tJ.innerHTML = "" + num1;
-            tD.innerHTML = "" + num2;
-            tS.innerHTML = "" + num3;
+            selectors.tJ.innerHTML = "" + num1;
+            selectors.tD.innerHTML = "" + num2;
+            selectors.tS.innerHTML = "" + num3;
 
         }, 1000);
 
@@ -45,9 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const clearTimer = () => {
         clearInterval(timerInterval);
 
-        tS.innerHTML = "" + 0;
-        tD.innerHTML = "" + 0;
-        tJ.innerHTML = "" + 0;
+        selectors.tS.innerHTML = "" + 0;
+        selectors.tD.innerHTML = "" + 0;
+        selectors.tJ.innerHTML = "" + 0;
         num1 = 0;
         num2 = 0;
         num3 = 0;
@@ -58,18 +54,48 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInterval(timerInterval);
     };
 
-    const saperPicture = document.querySelector(".saperPicture");
-    saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
-    const main = document.querySelector(".mainContainer");
-    const board = document.querySelector(".boardContainer");
-    const info = document.querySelector(".informationContainer");
-    const menu = document.querySelector(".menuContainer");
-    info.style.width = board.style.width;
+    selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+    selectors.info.style.width = selectors.board.style.width;
     let cells = [];
     let cellsNumbers = [];
     let numberOfCells;
     let floodFillCounter = 0;
 
+    class WinForm {
+        constructor() {
+        }
+
+        showWinForm() {
+            let bool = false;
+            const nickReg = new RegExp('^[0-9a-zA-Z]+$');
+            let nick = "";
+            selectors.winFormBackground.style.display = "flex";
+            selectors.winFormBackground.addEventListener("contextmenu", function (e) {
+                e.preventDefault();
+            });
+            selectors.winTime.innerText = "you won in " + num3 + num2 + num1 + "s";
+            selectors.ok.addEventListener("click", function (e) {
+                if (bool === false) {
+                    e.preventDefault();
+                    if (document.form.nick.value.length === 0) {
+                        alert("Field can not be empty");
+                    } else if (!nickReg.test(document.form.nick.value)) {
+                        alert("Use only letters and numbers");
+                    } else {
+                        bool = true;
+                        nick = document.form.nick.value;
+                        selectors.winFormBackground.style.display = "none";
+                        console.log(nick);
+                    }
+                }
+            });
+            selectors.cancel.addEventListener("click", function (e) {
+                e.preventDefault();
+                selectors.winFormBackground.style.display = "none";
+            });
+        }
+
+    }
 
     class Minesweeper {
         constructor(boardColumns, boardRows, numberOfMines) {
@@ -80,11 +106,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         createBoard() {
             console.log(this.numberOfMines);
-            main.style.width = this.boardColumns * 35 + 45 + "px";
-            board.style.width = this.boardColumns * 35 + 6 + "px";
-            board.style.height = this.boardRows * 35 + 6 + "px";
-            info.style.width = this.boardColumns * 35 + 6 + "px";
-            menu.style.width = this.boardColumns * 35 + 6 + "px";
+            selectors.main.style.width = this.boardColumns * 35 + 45 + "px";
+            selectors.board.style.width = this.boardColumns * 35 + 6 + "px";
+            selectors.board.style.height = this.boardRows * 35 + 6 + "px";
+            selectors.info.style.width = this.boardColumns * 35 + 6 + "px";
+            selectors.menu.style.width = this.boardColumns * 35 + 6 + "px";
             numberOfCells = this.boardRows * this.boardColumns;
             for (let i = 0; i < this.boardRows; i++) {
                 cells.push([]);
@@ -93,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 for (let j = 0; j < this.boardColumns; j++) {
                     const newCell = document.createElement("div");
                     newCell.classList.add("unknown");
-                    board.appendChild(newCell);
+                    selectors.board.appendChild(newCell);
                     cells[i].push(newCell);
 
                 }
@@ -110,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (e.button === 0 && !cells[i][j].classList.contains("gameOver")) {
                             if (this.innerText !== "🚩" && this.innerText !== "?" && !this.classList.contains("known")) {
                                 this.className = "known";
-                                saperPicture.style.backgroundImage = "url(images/face_active.png)";
+                                selectors.saperPicture.style.backgroundImage = "url(images/face_active.png)";
                             }
                         }
                     });
@@ -232,9 +258,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let d = Math.floor(this.numberOfMines / 10 % 10);
             let j = this.numberOfMines % 10;
 
-            mS.innerHTML = "" + s;
-            mD.innerHTML = "" + d;
-            mJ.innerHTML = "" + j;
+            selectors.mS.innerHTML = "" + s;
+            selectors.mD.innerHTML = "" + d;
+            selectors.mJ.innerHTML = "" + j;
         };
 
         checkNeighbours(x, y) {
@@ -303,8 +329,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     }
                 }
-                window.alert("You WON!");
                 stopTimer();
+                const winForm = new WinForm();
+                winForm.showWinForm();
             }
         }
 
@@ -349,11 +376,11 @@ document.addEventListener("DOMContentLoaded", function () {
         reveal(x, y) {
             if (cellsNumbers[x][y] === 0) {
                 cells[x][y].className = "known";
-                saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+                selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
             }
             if (cellsNumbers[x][y] >= 1 && cellsNumbers[x][y] <= 8) {
                 cells[x][y].className = "known";
-                saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+                selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
                 for (let i = 1; i < 9; i++) {
                     if (cellsNumbers[x][y] === i) {
                         cells[x][y].classList.add("number" + i);
@@ -364,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (cellsNumbers[x][y] === -1) {
                 stopTimer();
-                saperPicture.style.backgroundImage = "url(images/face_lose.png)";
+                selectors.saperPicture.style.backgroundImage = "url(images/face_lose.png)";
                 for (let i = 0; i < this.boardRows; i++) {
                     for (let j = 0; j < this.boardColumns; j++) {
                         cells[i][j].classList.add("gameOver");
@@ -393,17 +420,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let difficult = 0;
 
-    const minesweeper = new Minesweeper(15, 15, 30);
+    let minesweeper = new Minesweeper(15, 15, 1);
     minesweeper.createBoard();
     minesweeper.createCellsNumbers();
     minesweeper.minesCounter();
 
 
-    saperPicture.addEventListener("mousedown", function () {
-        saperPicture.style.backgroundImage = "url(images/face_pressed.png)";
+    selectors.saperPicture.addEventListener("mousedown", function () {
+        selectors.saperPicture.style.backgroundImage = "url(images/face_pressed.png)";
     });
-    saperPicture.addEventListener("mouseup", () => {
-        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+    selectors.saperPicture.addEventListener("mouseup", () => {
+        selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         if (difficult === 1) {
             const minesweeper = new Minesweeper(9, 9, 10);
             minesweeper.start();
@@ -436,26 +463,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuMedium = document.querySelector(".medium");
     const menuHard = document.querySelector(".hard");
     menuEasy.addEventListener("click", () => {
-        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 1;
-        const minesweeper = new Minesweeper(9, 9, 10);
+        const minesweeper = new Minesweeper(9, 9, 1);
         minesweeper.start();
         clearTimer();
+        console.log(minesweeper);
     });
     menuMedium.addEventListener("click", () => {
-        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 2;
-        const minesweeper = new Minesweeper(15, 15, 30);
+        const minesweeper = new Minesweeper(15, 15, 1);
         minesweeper.start();
         clearTimer();
     });
     menuHard.addEventListener("click", () => {
-        saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
+        selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 3;
-        const minesweeper = new Minesweeper(30, 16, 99);
+        const minesweeper = new Minesweeper(30, 16, 1);
         minesweeper.start();
         clearTimer();
-    })
+    });
 
 
 });

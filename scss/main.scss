@@ -206,7 +206,6 @@ body {
   text-align: center;
   line-height: 35px;
   font-size: 1.8em;
-  //font-family: 'Digital-7', sans-serif;
 }
 
 .flag {
@@ -214,18 +213,19 @@ body {
 }
 
 .winFormBackground {
-  display: flex;
-  align-items: center;
+  display: none;
+  //align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
   background-color: rgba(124, 121, 124, 0.5);
   position: absolute;
   top: 0;
-  display: none;
+  user-select: none;
 
   .border {
-
+    position: absolute;
+    top: 180px;
     background-color: $backgroundColor;
     border-top: $border solid $borderTopLeftColor;
     border-left: $border solid $borderTopLeftColor;
@@ -234,7 +234,6 @@ body {
     padding: 5px;
 
     .winForm {
-      border: 1px solid black;
       display: flex;
       align-items: center;
       flex-direction: column;
@@ -259,7 +258,7 @@ body {
           margin-bottom: 5px;
         }
 
-        button {
+        .ok, .cancel {
           width: 83px;
           margin: 5px 0 20px 0;
         }

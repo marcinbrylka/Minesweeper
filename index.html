@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl-PL">
+<html lang="en-EN">
 <head>
     <meta charset="UTF-8">
     <title>Minesweeper</title>
@@ -25,6 +25,7 @@
         </ul>
     </section>
     <br>
+
     <section class="informationContainer">
         <div class="minesCounter">
             <div class="mJ">0</div>
@@ -43,27 +44,223 @@
         </div>
     </section>
     <br>
-    <div class="winFormBackground">
+    <br>
+
+    <section class="boardContainer">
+    </section>
+
+    <section class="winFormBackground">
         <div class="border">
             <div class="winForm">
-                <p>Congratulation</p>
+                <p>Congratulations</p>
                 <span class="winTime">
                 you won in 345s
             </span>
-                <form action="">
-                    <input type="text" placeholder="Enter your nick" required>
+                <form name="form" action="">
+                    <input name="nick" type="text" value="" placeholder="Enter your nick" required maxlength="14">
                     <br>
-                    <button>OK</button>
-                    <button>Cancel</button>
+                    <input class="ok" type="submit" name="ok" value="OK">
+                    <input class="cancel" type="submit" name="cancel" value="Cancel" formnovalidate>
                 </form>
             </div>
         </div>
-    </div>
-    <br>
-    <section class="boardContainer">
-
     </section>
 
+</section>
+
+<section class="rankingTable" style="margin: 20px 0 20px 0; width: 500px; padding: 5px">
+    <table style="border: 1px solid black; width: 500px; padding: 10px; display: flex; justify-content: center">
+        <tbody>
+        <tr class="difficult" style="width: 100%">
+            <th class="easy">easy</th>
+            <th class="medium">medium</th>
+            <th class="hard">hard</th>
+        </tr>
+
+        <tr class="playerData" style="width: 100%">
+            <td class="">
+                <table style="border: 1px solid red">
+                    <tr>
+                        <th>position</th>
+                        <th>nick</th>
+                        <th>time</th>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td>Jokee</td>
+                        <td>345s</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+
+            <td class="">
+                <table style="border: 1px solid red">
+                    <tr>
+                        <th>position</th>
+                        <th>nick</th>
+                        <th>time</th>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td>Jokee</td>
+                        <td>345s</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+
+            <td class="">
+                <table style="border: 1px solid red">
+                    <tr>
+                        <th>position</th>
+                        <th>nick</th>
+                        <th>time</th>
+                    </tr>
+                    <tr>
+                        <td>1.</td>
+                        <td>Jokee</td>
+                        <td>345s</td>
+                    </tr>
+                    <tr>
+                        <td>2.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10.</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
 </section>
 
 </body>
