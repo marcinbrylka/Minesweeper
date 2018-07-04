@@ -61,47 +61,153 @@ document.addEventListener("DOMContentLoaded", function () {
     let numberOfCells;
     let floodFillCounter = 0;
 
-    class WinForm {
+    class rankingTable {
         constructor() {
         }
 
-        showWinForm() {
-            let bool = false;
+
+    }
+
+    let nick = "";
+    let time = "";
+    let playerEasy = [];
+    let playerMedium = [];
+    let playerHard = [];
+
+    class WinForm {
+        constructor() {
+
+        }
+
+
+        showWinForm(difficult) {
+            time = num3 + "" + num2 + "" + num1;
+            let nickSave = false;
             const nickReg = new RegExp('^[0-9a-zA-Z]+$');
-            let nick = "";
+
             selectors.winFormBackground.style.display = "flex";
             selectors.winFormBackground.addEventListener("contextmenu", function (e) {
                 e.preventDefault();
             });
-            selectors.winTime.innerText = "you won in " + num3 + num2 + num1 + "s";
-            selectors.ok.addEventListener("click", function (e) {
-                if (bool === false) {
+            selectors.winTime.innerText = "you won in " + time + "s";
+            selectors.ok.addEventListener("click", (e) => {
+                if (nickSave === false) {
                     e.preventDefault();
+                    e.stopPropagation();
                     if (document.form.nick.value.length === 0) {
                         alert("Field can not be empty");
                     } else if (!nickReg.test(document.form.nick.value)) {
                         alert("Use only letters and numbers");
                     } else {
-                        bool = true;
+                        nickSave = true;
                         nick = document.form.nick.value;
                         selectors.winFormBackground.style.display = "none";
-                        console.log(nick);
+                        let newPlayer = [nick, time];
+                        this.rankingTable(newPlayer, difficult);
                     }
                 }
             });
             selectors.cancel.addEventListener("click", function (e) {
                 e.preventDefault();
+                e.stopPropagation();
+                nickSave = true;
                 selectors.winFormBackground.style.display = "none";
+
             });
+        };
+
+        rankingTable(newPlayer, difficult) {
+            const easyTable = document.querySelector(".dataEasyTable");
+            const mediumTable = document.querySelector(".dataMediumTable");
+            const hardTable = document.querySelector(".dataHardTable");
+            let player = [];
+            if (difficult === "easy") {
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        player.push(easyTable.children[0].children[i].children[j].innerHTML);
+                    }
+                    playerEasy.push(player);
+                    player = [];
+                }
+                playerEasy.push(newPlayer);
+                playerEasy.sort(function (a, b) {
+                    return parseInt(a[1], 10) - parseInt(b[1], 10);
+                });
+                if (playerEasy.length > 10) {
+                    playerEasy.pop();
+                }
+                console.log(playerEasy);
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        easyTable.children[0].children[i].children[j].innerHTML = playerEasy[i][j - 1];
+                    }
+                }
+                playerEasy = [];
+
+            } else if (difficult === "medium") {
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        player.push(mediumTable.children[0].children[i].children[j].innerHTML);
+                    }
+                    playerMedium.push(player);
+                    player = [];
+                }
+                playerMedium.push(newPlayer);
+                playerMedium.sort(function (a, b) {
+                    return parseInt(a[1], 10) - parseInt(b[1], 10);
+                });
+                if (playerMedium.length > 10) {
+                    playerMedium.pop();
+                }
+                console.log(playerMedium);
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        mediumTable.children[0].children[i].children[j].innerHTML = playerMedium[i][j - 1];
+                    }
+                }
+                playerMedium = [];
+
+            } else if (difficult === "hard") {
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        player.push(hardTable.children[0].children[i].children[j].innerHTML);
+                    }
+                    playerHard.push(player);
+                    player = [];
+                }
+                playerHard.push(newPlayer);
+                playerHard.sort(function (a, b) {
+                    return parseInt(a[1], 10) - parseInt(b[1], 10);
+                });
+                if (playerHard.length > 10) {
+                    playerHard.pop();
+                }
+                console.log(playerHard);
+
+                for (let i = 0; i < 10; i++) {
+                    for (let j = 1; j < 3; j++) {
+                        hardTable.children[0].children[i].children[j].innerHTML = playerHard[i][j - 1];
+                    }
+                }
+                playerHard = [];
+
+            }
+
         }
 
     }
 
     class Minesweeper {
-        constructor(boardColumns, boardRows, numberOfMines) {
+        constructor(boardColumns, boardRows, numberOfMines, difficult) {
             this.boardColumns = boardColumns;
             this.boardRows = boardRows;
             this.numberOfMines = numberOfMines;
+            this.difficult = difficult;
         }
 
         createBoard() {
@@ -331,7 +437,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 stopTimer();
                 const winForm = new WinForm();
-                winForm.showWinForm();
+                winForm.showWinForm(this.difficult);
             }
         }
 
@@ -420,7 +526,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let difficult = 0;
 
-    let minesweeper = new Minesweeper(15, 15, 1);
+    const minesweeper = new Minesweeper(15, 15, 1, "medium");
     minesweeper.createBoard();
     minesweeper.createCellsNumbers();
     minesweeper.minesCounter();
@@ -432,25 +538,25 @@ document.addEventListener("DOMContentLoaded", function () {
     selectors.saperPicture.addEventListener("mouseup", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         if (difficult === 1) {
-            const minesweeper = new Minesweeper(9, 9, 10);
+            const minesweeper = new Minesweeper(9, 9, 10, "easy");
             minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 2) {
-            const minesweeper = new Minesweeper(15, 15, 30);
+            const minesweeper = new Minesweeper(15, 15, 30, "medium");
             minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 3) {
-            const minesweeper = new Minesweeper(30, 16, 99);
+            const minesweeper = new Minesweeper(30, 16, 99, "hard");
             minesweeper.start();
             clearTimer();
             return;
         }
         if (difficult === 0) {
-            const minesweeper = new Minesweeper(15, 15, 30);
+            const minesweeper = new Minesweeper(15, 15, 30, "medium");
             minesweeper.start();
             clearTimer();
             console.log(difficult);
@@ -465,7 +571,7 @@ document.addEventListener("DOMContentLoaded", function () {
     menuEasy.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 1;
-        const minesweeper = new Minesweeper(9, 9, 1);
+        const minesweeper = new Minesweeper(9, 9, 1, "easy");
         minesweeper.start();
         clearTimer();
         console.log(minesweeper);
@@ -473,14 +579,14 @@ document.addEventListener("DOMContentLoaded", function () {
     menuMedium.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 2;
-        const minesweeper = new Minesweeper(15, 15, 1);
+        const minesweeper = new Minesweeper(15, 15, 1, "medium");
         minesweeper.start();
         clearTimer();
     });
     menuHard.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 3;
-        const minesweeper = new Minesweeper(30, 16, 1);
+        const minesweeper = new Minesweeper(30, 16, 1, "hard");
         minesweeper.start();
         clearTimer();
     });
