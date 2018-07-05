@@ -58,7 +58,16 @@ class WinForm {
             }
             playerEasy.push(newPlayer);
             playerEasy.sort(function (a, b) {
-                return parseInt(a[1], 10) - parseInt(b[1], 10);
+                if (isNaN(parseInt(a[1], 10)))
+                    return 1;
+                if (isNaN(parseInt(b[1], 10)))
+                    return -1;
+                if (parseInt(a[1], 10) === parseInt(b[1], 10))
+                    return 0;
+                if (parseInt(a[1], 10) < parseInt(b[1], 10))
+                    return -1;
+                else
+                    return 1;
             });
             if (playerEasy.length > 10) {
                 playerEasy.pop();
@@ -83,7 +92,16 @@ class WinForm {
             }
             playerMedium.push(newPlayer);
             playerMedium.sort(function (a, b) {
-                return parseInt(a[1], 10) - parseInt(b[1], 10);
+                if (isNaN(parseInt(a[1], 10)))
+                    return 1;
+                if (isNaN(parseInt(b[1], 10)))
+                    return -1;
+                if (parseInt(a[1], 10) === parseInt(b[1], 10))
+                    return 0;
+                if (parseInt(a[1], 10) < parseInt(b[1], 10))
+                    return -1;
+                else
+                    return 1;
             });
             if (playerMedium.length > 10) {
                 playerMedium.pop();
@@ -108,7 +126,16 @@ class WinForm {
             }
             playerHard.push(newPlayer);
             playerHard.sort(function (a, b) {
-                return parseInt(a[1], 10) - parseInt(b[1], 10);
+                if (isNaN(parseInt(a[1], 10)))
+                    return 1;
+                if (isNaN(parseInt(b[1], 10)))
+                    return -1;
+                if (parseInt(a[1], 10) === parseInt(b[1], 10))
+                    return 0;
+                if (parseInt(a[1], 10) < parseInt(b[1], 10))
+                    return -1;
+                else
+                    return 1;
             });
             if (playerHard.length > 10) {
                 playerHard.pop();
