@@ -14,9 +14,11 @@ class Selectors {
         this.menu = document.querySelector(".menuContainer");
         this.winFormBackground = document.querySelector(".winFormBackground");
         this.winTime = document.querySelector(".winTime");
-        this.nickInput = document.querySelector("input");
         this.ok = document.querySelector(".ok");
         this.cancel = document.querySelector(".cancel");
+        this.easyTable = document.querySelector(".dataEasyTable");
+        this.mediumTable = document.querySelector(".dataMediumTable");
+        this.hardTable = document.querySelector(".dataHardTable");
     }
 }
 
