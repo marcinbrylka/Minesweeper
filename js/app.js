@@ -141,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     cells[i][j].addEventListener("mousedown", (e) => {
                         if (e.button === 1 && !cells[i][j].classList.contains("gameOver")) {
+                            e.preventDefault();
                             this.showNeighboursCells(i, j);
 
                             for (let i = 0; i < this.boardRows; i++) {
@@ -462,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function () {
     menuEasy.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 1;
-        const minesweeper = new Minesweeper(9, 9, 1, "easy");
+        const minesweeper = new Minesweeper(9, 9, 10, "easy");
         minesweeper.start();
         clearTimer();
         console.log(minesweeper);
@@ -470,14 +471,14 @@ document.addEventListener("DOMContentLoaded", function () {
     menuMedium.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 2;
-        const minesweeper = new Minesweeper(15, 15, 1, "medium");
+        const minesweeper = new Minesweeper(15, 15, 30, "medium");
         minesweeper.start();
         clearTimer();
     });
     menuHard.addEventListener("click", () => {
         selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
         difficult = 3;
-        const minesweeper = new Minesweeper(30, 16, 1, "hard");
+        const minesweeper = new Minesweeper(30, 16, 99, "hard");
         minesweeper.start();
         clearTimer();
     });
