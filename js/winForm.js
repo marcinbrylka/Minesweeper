@@ -74,6 +74,8 @@ class WinForm {
             }
             console.log(playerEasy);
 
+            localStorage.setItem("arrayEasy", JSON.stringify(playerEasy));
+
             for (let i = 0; i < 10; i++) {
                 for (let j = 1; j < 3; j++) {
                     this.selectors.easyTable.children[0].children[i].children[j].innerHTML = playerEasy[i][j - 1];
@@ -108,6 +110,8 @@ class WinForm {
             }
             console.log(playerMedium);
 
+            localStorage.setItem("arrayMedium", JSON.stringify(playerMedium));
+
             for (let i = 0; i < 10; i++) {
                 for (let j = 1; j < 3; j++) {
                     this.selectors.mediumTable.children[0].children[i].children[j].innerHTML = playerMedium[i][j - 1];
@@ -141,6 +145,8 @@ class WinForm {
                 playerHard.pop();
             }
             console.log(playerHard);
+
+            localStorage.setItem("arrayHard", JSON.stringify(playerEasy));
 
             for (let i = 0; i < 10; i++) {
                 for (let j = 1; j < 3; j++) {

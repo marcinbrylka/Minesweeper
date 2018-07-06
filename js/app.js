@@ -4,16 +4,35 @@ import {WinForm} from "./winform.js"
 
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    // localStorage.clear();
     const selectors = new Selectors();
+
+    window.addEventListener("load", function () {
+
+        let playerEasy = JSON.parse(localStorage.getItem("arrayEasy"));
+        let playerMedium = JSON.parse(localStorage.getItem("arrayMedium"));
+        let playerHard = JSON.parse(localStorage.getItem("arrayHard"));
+
+        for (let i = 0; i < 10; i++) {
+            for (let j = 1; j < 3; j++) {
+                if (localStorage.arrayEasy !== undefined) {
+                    selectors.easyTable.children[0].children[i].children[j].innerHTML = playerEasy[i][j - 1];
+                }
+                if (localStorage.arrayMedium !== undefined) {
+                    selectors.mediumTable.children[0].children[i].children[j].innerHTML = playerMedium[i][j - 1];
+                }
+                if (localStorage.arrayHard !== undefined) {
+                    selectors.hardTable.children[0].children[i].children[j].innerHTML = playerHard[i][j - 1];
+                }
+            }
+        }
+    });
 
     let timerInterval;
     let num1 = 0;
     let num2 = 0;
     let num3 = 0;
     let startTimer = 0;
-
-
 
 
     const timer = () => {
@@ -71,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     }
-
 
 
     class Minesweeper {
