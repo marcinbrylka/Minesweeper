@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
             selectors.info.style.width = this.boardColumns * 35 + 6 + "px";
             selectors.menu.style.width = this.boardColumns * 35 + 6 + "px";
             numberOfCells = this.boardRows * this.boardColumns;
+            const buttonFlag = selectors.buttonFlag;
             for (let i = 0; i < this.boardRows; i++) {
                 cells.push([]);
             }
@@ -123,6 +124,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
+            buttonFlag.addEventListener("mouseup", function () {
+                this.classList.toggle("flagActive");
+            });
+
             for (let i = 0; i < this.boardRows; i++) {
                 for (let j = 0; j < this.boardColumns; j++) {
                     cells[i][j].addEventListener("contextmenu", function (e) {
@@ -133,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     cells[i][j].addEventListener("mousedown", function (e) {
                         if (e.button === 0 && !cells[i][j].classList.contains("gameOver")) {
                             if (this.innerText !== "🚩" && this.innerText !== "?" && !this.classList.contains("known")) {
-                                this.className = "known";
                                 selectors.saperPicture.style.backgroundImage = "url(images/face_active.png)";
                             }
                         }
@@ -182,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
 
                     cells[i][j].addEventListener("mouseup", (e) => {
-                        if (e.button === 0 && !cells[i][j].classList.contains("gameOver")) {
+                        if (e.button === 0 && !cells[i][j].classList.contains("gameOver") && !buttonFlag.classList.contains("flagActive")) {
                             if (startTimer === 0) {
                                 timer();
                                 startTimer = 1;
@@ -195,6 +199,26 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                             this.reveal(i, j);
 
+                        }
+
+                        if (e.button === 0 && !cells[i][j].classList.contains("gameOver") && buttonFlag.classList.contains("flagActive")) {
+                            if (cells[i][j].className === "unknown") {
+                                if (cells[i][j].innerText === "") {
+                                    cells[i][j].innerText = "🚩";
+                                    this.numberOfMines--;
+                                    this.minesCounter();
+                                    if (this.numberOfMines === 0) {
+                                        this.win();
+                                    }
+                                } else if (cells[i][j].innerText === "🚩") {
+                                    cells[i][j].innerText = "?";
+                                    this.numberOfMines++;
+                                    this.minesCounter();
+                                } else if (cells[i][j].innerText === "?") {
+                                    cells[i][j].innerText = "";
+                                }
+                            }
+                            console.log(this.numberOfMines);
                         }
 
                         if (e.button === 2) {

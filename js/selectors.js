@@ -20,6 +20,7 @@ class Selectors {
         this.mediumTable = document.querySelector(".dataMediumTable");
         this.hardTable = document.querySelector(".dataHardTable");
         this.body = document.querySelector("body");
+        this.buttonFlag = document.querySelector(".buttonFlag");
     }
 }
 

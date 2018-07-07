@@ -72,6 +72,7 @@ $numberColors: (
 }
 
 body {
+  min-width: 1200px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,18 +97,29 @@ body {
 }
 
 .menuContainer {
+  display: flex;
+  justify-content: space-between;
   .menu {
     font-size: 15px;
     display: flex;
-    align-content: flex-start;
+    align-items: flex-start;
     li {
       width: 75px;
       height: 20px;
+      align-self: center;
       text-align: center;
       line-height: 20px;
       cursor: pointer;
     }
   }
+  button {
+    box-shadow: 0 0 5px 1px rgba(255, 0, 0, 1);
+    margin-right: 25px;
+  }
+}
+
+.flagActive {
+  box-shadow: 0 0 5px 1px rgba(12,173,0,1) !important;
 }
 
 .menu {
@@ -208,9 +220,9 @@ body {
   font-size: 1.8em;
 }
 
-.flag {
-  line-height: 35px;
-}
+//.flag {
+//  line-height: 35px;
+//}
 
 .winFormBackground {
   display: none;
