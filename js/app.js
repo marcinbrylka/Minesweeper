@@ -79,6 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     selectors.saperPicture.style.backgroundImage = "url(images/face_unpressed.png)";
     selectors.info.style.width = selectors.board.style.width;
+    const buttonFlag = selectors.buttonFlag;
+    buttonFlag.addEventListener("click", function () {
+            this.classList.toggle("flagActive");
+    });
     let cells = [];
     let cellsNumbers = [];
     let numberOfCells;
@@ -110,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function () {
             selectors.info.style.width = this.boardColumns * 35 + 6 + "px";
             selectors.menu.style.width = this.boardColumns * 35 + 6 + "px";
             numberOfCells = this.boardRows * this.boardColumns;
-            const buttonFlag = selectors.buttonFlag;
             for (let i = 0; i < this.boardRows; i++) {
                 cells.push([]);
             }
@@ -124,9 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
 
-            buttonFlag.addEventListener("mouseup", function () {
-                this.classList.toggle("flagActive");
-            });
+
 
             for (let i = 0; i < this.boardRows; i++) {
                 for (let j = 0; j < this.boardColumns; j++) {
@@ -436,6 +437,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this.createCellsNumbers();
             this.createBoard();
             this.minesCounter();
+            buttonFlag.classList.remove("flagActive");
+
         }
 
     }
